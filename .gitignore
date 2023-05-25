@@ -127,6 +127,7 @@ venv/
 ENV/
 env.bak/
 venv.bak/
+ytube_summary_venv/
 
 # Spyder project settings
 .spyderproject
