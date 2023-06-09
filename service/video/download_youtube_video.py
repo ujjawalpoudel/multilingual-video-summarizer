@@ -1,15 +1,24 @@
-from pytube import YouTube
 import os
+from pytube import YouTube
 
 
 def download_video(url):
-    # * Get Data from Youtube
+    """
+    Downloads a YouTube video using the provided URL and returns the path to the downloaded video.
+
+    Args:
+        url (str): The URL of the YouTube video to download.
+
+    Returns:
+        str: The path to the downloaded video file.
+    """
+    # Get data from YouTube
     yt = YouTube(url)
 
-    # Get the YouTube video stream with itag 22
+    # Get the YouTube video stream with itag 22 (720p resolution)
     stream = yt.streams.get_by_itag(22)
 
-    # Joining paths
+    # Set the save path directory
     save_path = os.path.join(os.getcwd(), "static")
 
     # Create the save path directory if it doesn't exist
