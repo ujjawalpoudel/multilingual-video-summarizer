@@ -48,3 +48,20 @@ class User(DefaultAttributes, Document):
     fullname = StringField(max_length=200, required=True, validation=validate_name)
     email = EmailField(required=True, unique=True)
     password = StringField(required=True)
+
+
+class Video(DefaultAttributes, Document):
+    """
+    Video model with attributes such as title, url, author, length, video_id,
+    publish_date, video_path, audio_path, and text.
+    """
+
+    title = StringField(max_length=200, required=True, validation=validate_name)
+    url = StringField(required=True, unique=True)
+    author = StringField(max_length=200, required=True, validation=validate_name)
+    length = IntField(required=True)
+    video_id = StringField(required=True, unique=True)
+    publish_date = DateTimeField(required=True)
+    video_path = StringField(required=True, unique=True)
+    audio_path = StringField(required=True, unique=True)
+    text = StringField(required=True, unique=True)
