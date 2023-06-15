@@ -39,7 +39,7 @@ def get_summarize():
         return response(
             200,
             {
-                "msg": "Successfully extracted video",
+                "msg": "Successfully Extracted Video Metadata, Audio, and Text.",
                 "metadata": metadata,
                 "video_path": video_path,
                 "audio_path": audio_path,
