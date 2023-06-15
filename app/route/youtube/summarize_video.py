@@ -2,8 +2,8 @@
 import json
 
 # Third-party modules
+import pytube
 from flask import Blueprint, request
-from mongoengine import DoesNotExist
 
 # Custom modules
 from utils.response_utils import response
@@ -39,13 +39,19 @@ def get_summarize():
         return response(
             200,
             {
-                "msg": "Successfully Extracted Video Metadata, Audio, and Text.",
+                "msg": "Successfully extracted video metadata, audio, and text.",
                 "metadata": metadata,
                 "video_path": video_path,
                 "audio_path": audio_path,
                 "text": text,
             },
         )
+    except pytube.exceptions.PytubeError as e:
+        # Handle PytubeError and return an error response
+        error_message = str(e)
+        return response(500, {"msg": error_message})
 
-    except DoesNotExist:
-        return response(401, {"msg": "Invalid URL Address"})
+    except Exception as e:
+        # Handle other exceptions and return an error response
+        error_message = str(e)
+        return response(401, {"msg": error_message})
