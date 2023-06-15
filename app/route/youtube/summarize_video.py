@@ -10,6 +10,7 @@ from utils.response_utils import response
 from service.video.youtube_metadata import get_video_metadata
 from service.video.download_youtube_video import download_video
 from service.video.video_to_audio import convert_video_to_audio
+from service.video.audio_to_text import convert_audio_to_text
 
 # Define Blueprint for API Routes
 summarize_module = Blueprint("summarize_module", __name__)
@@ -32,6 +33,9 @@ def get_summarize():
         # Get audio from the given video
         audio_path = convert_video_to_audio(video_path)
 
+        # Get text from the given audio
+        text = convert_audio_to_text(audio_path)
+
         return response(
             200,
             {
@@ -39,6 +43,7 @@ def get_summarize():
                 "metadata": metadata,
                 "video_path": video_path,
                 "audio_path": audio_path,
+                "text": text,
             },
         )
 
