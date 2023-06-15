@@ -17,13 +17,13 @@ def get_video_metadata(url):
     # Extract relevant metadata from the YouTube object
     youtube_metadata = {
         "title": yt.title,
-        "thumbnail": yt.thumbnail_url,
-        "description": yt.description,
+        # "thumbnail": yt.thumbnail_url,
+        # "description": yt.description,
         "author": yt.author,
         "length": yt.length,
-        "rating": yt.rating,
-        "views": yt.views,
-        "keywords": yt.keywords,
+        # "rating": yt.rating,
+        # "views": yt.views,
+        # "keywords": yt.keywords,
         "video_id": yt.video_id,
         "publish_date": yt.publish_date,
         "video_url": yt.watch_url,
