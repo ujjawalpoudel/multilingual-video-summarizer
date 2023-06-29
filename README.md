@@ -85,6 +85,7 @@ To run the API tests, follow the steps below:
 4. Click the "Run" button to start the test execution.
 
 5. Monitor the test execution and observe the test results in the Postman Runner.
+![API Endpoint Hit]("/Users/ujjawalpoudel/Downloads/Code/Lambton/Second Semester/Project/multilingual-video-summarizer/static/image/API Hit Endpoint.png")
 
 ## Test Results
 
