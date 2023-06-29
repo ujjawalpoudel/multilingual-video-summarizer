@@ -86,8 +86,6 @@ To run the API tests, follow the steps below:
 
 5. Monitor the test execution and observe the test results in the Postman Runner.
 
-<br>
-![API Endpoint Hit](https://github.com/ujjawalpoudel/multilingual-video-summarizer/blob/youtube-audio-download-fix/API%20Hit%20Endpoint.png)
 
 ## Test Results
 
