@@ -1,30 +1,36 @@
 import os
-from pytube import YouTube
+from yt_dlp import YoutubeDL
 
 
-def download_video(url):
-    """
-    Downloads a YouTube video using the provided URL and returns the path to the downloaded video.
-
-    Args:
-        url (str): The URL of the YouTube video to download.
-
-    Returns:
-        str: The path to the downloaded video file.
-    """
-    # Get data from YouTube
-    yt = YouTube(url)
-
-    # Get the YouTube video stream with itag 22 (720p resolution)
-    stream = yt.streams.get_by_itag(22)
-
+def download_video_as_mp3(url):
     # Set the save path directory
-    save_path = os.path.join(os.getcwd(), "static")
+    output_dir = os.path.join(os.getcwd(), "static")
 
     # Create the save path directory if it doesn't exist
-    os.makedirs(save_path, exist_ok=True)
+    os.makedirs(output_dir, exist_ok=True)
 
-    # Download the video to the specified path
-    video_path = stream.download(save_path)
+    # Set the download options  for the video
+    ydl_opts = {
+        "format": "bestaudio/best",
+        "postprocessors": [
+            {
+                "key": "FFmpegExtractAudio",
+                "preferredcodec": "mp3",
+                "preferredquality": "192",
+            }
+        ],
+        "outtmpl": f"{output_dir}/%(title)s.%(ext)s",
+    }
 
-    return video_path
+    with YoutubeDL(ydl_opts) as ydl:
+        # Download the video
+        info_dict = ydl.extract_info(url, download=True)
+        # video_title = info_dict.get('title', 'video')
+
+        # Get the save path of the audio
+        file_path = ydl.prepare_filename(info_dict)
+
+        # Change the file extension to .mp3
+        mp3_file_path = os.path.splitext(file_path)[0] + ".mp3"
+
+    return mp3_file_path
