@@ -6,7 +6,9 @@ from flask import Blueprint, request
 from flask_cors import cross_origin
 
 # Custom modules
+from app.validator.url_validator import URLValidator
 from utils.response_utils import response
+from utils.validation_decorators import pydantic_validation
 from service.video.download_youtube_video import download_video_as_mp3
 
 # Define Blueprint for API Routes
@@ -14,6 +16,7 @@ file_download_blueprint = Blueprint("file_download", __name__)
 
 
 @file_download_blueprint.route("/download", methods=["POST"])
+@pydantic_validation(URLValidator)
 @cross_origin()
 def download_file():
     try:
