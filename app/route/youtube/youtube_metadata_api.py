@@ -3,7 +3,9 @@ from flask import Blueprint, request
 from flask_cors import cross_origin
 
 # Custom modules
+from app.validator.url_validator import URLValidator
 from utils.response_utils import response
+from utils.validation_decorators import pydantic_validation
 from service.video.youtube_metadata import get_video_metadata
 
 # Define Blueprint for API Routes
@@ -12,6 +14,7 @@ video_metadata_blueprint = Blueprint("video_metadata", __name__)
 
 # Define API Route for getting video metadata
 @video_metadata_blueprint.route("/metadata", methods=["GET"])
+@pydantic_validation(URLValidator)
 @cross_origin()
 def get_video_metadata_route():
     try:
