@@ -8,6 +8,7 @@ __pycache__/
 
 # Distribution / packaging
 .Python
+summa
 build/
 develop-eggs/
 dist/
