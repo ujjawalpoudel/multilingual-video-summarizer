@@ -1,6 +1,8 @@
 import pydantic
 import os
 
+# TODO: We have to change this validation after deploy code in server.
+
 
 def is_valid_file_path(file_path: str):
     """
