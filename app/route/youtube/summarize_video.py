@@ -14,6 +14,7 @@ from service.video.audio_to_text import convert_audio_to_text
 # Define Blueprint for API Routes
 summarize_module = Blueprint("summarize_module", __name__)
 
+
 # Define API Route for getting video metadata
 @summarize_module.route("/video_meta", methods=["POST"])
 @cross_origin()
@@ -26,7 +27,13 @@ def get_video_metadata_route():
         # Get metadata from YouTube
         video_metadata = get_video_metadata(url)
 
-        return response(200, {"message": "Successfully extracted video metadata.", "metadata": video_metadata})
+        return response(
+            200,
+            {
+                "message": "Successfully extracted video metadata.",
+                "metadata": video_metadata,
+            },
+        )
     except Exception as e:
         # Handle other exceptions and return an error response
         error_message = str(e)
@@ -45,7 +52,13 @@ def get_audio_file_route():
         # Download video from YouTube and get the audio file URL
         audio_path = download_video_as_mp3(url)
 
-        return response(200, {"message": "Successfully obtained audio file URL.", "audio_path": audio_path})
+        return response(
+            200,
+            {
+                "message": "Successfully obtained audio file URL.",
+                "audio_path": audio_path,
+            },
+        )
     except Exception as e:
         # Handle other exceptions and return an error response
         error_message = str(e)

@@ -20,17 +20,20 @@ app = Flask(__name__)
 CORS(app)
 
 # Define the path to the static directory
-static_dir = os.path.join(app.root_path, 'static')
+static_dir = os.path.join(app.root_path, "static")
+
 
 # Initialize base Flask API
 @app.route("/")
 def hello_world():
     return "Hello, User!"
 
+
 # Serve files from the static directory
 @app.route("/static/<path:filename>")
 def serve_static(filename):
     return send_from_directory(static_dir, filename)
+
 
 # Register Blueprint
 app.register_blueprint(summarize_module, url_prefix="/youtube")
