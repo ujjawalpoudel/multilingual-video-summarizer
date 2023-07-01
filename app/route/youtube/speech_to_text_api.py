@@ -6,7 +6,9 @@ from flask import Blueprint, request
 from flask_cors import cross_origin
 
 # Custom modules
+from app.validator.file_path_validator import FilePathValidator
 from utils.response_utils import response
+from utils.validation_decorators import pydantic_validation
 from service.video.audio_to_text import convert_audio_to_text
 
 # Define the blueprint for the audio-to-text functionality
@@ -15,6 +17,7 @@ audio_to_text_blueprint = Blueprint("audio_to_text", __name__)
 
 # Define the API route for converting audio to text
 @audio_to_text_blueprint.route("/convert", methods=["POST"])
+@pydantic_validation(FilePathValidator)
 @cross_origin()
 def convert_audio_to_text_route():
     try:
