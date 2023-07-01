@@ -57,7 +57,38 @@ This GitHub repository contains the code and documentation for a comprehensive v
 
   3. Access the application in a web browser by navigating to `http://localhost:5000`.
 
-
+## Folder Structure
+```
+/
+├── README.md
+├── .gitignore
+├── .env
+├── requirements.txt
+├── requirements.in
+├── config.py
+├── main.py
+├── app/
+│   ├── route/
+│   │   ├── youtube/
+│   │   │   ├── youtube_metadata_api.py
+│   │   │   ├── file_download_api.py
+│   │   │   └── speech_to_text_api.py
+│   ├── model/
+├── utils/
+│   ├── validation_utils.py
+│   ├── error_handling.py
+│   ├── generic_error.py
+│   ├── validation_decorators.py
+│   └── response_utils.py
+├── static/
+└── service/
+|    └── video/
+|       ├── audio_to_text.py
+|       ├── download_youtube_video.py
+|       └── youtube_metadata.py
+├── .git/
+└── ytube_summary_venv/
+```
     
 ## Environment Variables
 
@@ -107,5 +138,5 @@ Contributors can participate in developing and improving the video summarization
 
 ## Support
 
-For support, please contact one of the authors of this project or email me at ujjawalpoudel@gmail.com
+For support, please get in touch with one of the authors of this project or email me at ujjawalpoudel@gmail.com
 
