@@ -3,7 +3,7 @@ import datetime
 
 # Third-party imports
 from mongoengine import Document, ValidationError
-from mongoengine.fields import DateTimeField, StringField, EmailField, IntField
+from mongoengine.fields import DateTimeField, StringField, IntField
 
 
 def validate_name(name):
@@ -40,28 +40,18 @@ class DefaultAttributes:
         return super(DefaultAttributes, self).save(*args, **kwargs)
 
 
-class User(DefaultAttributes, Document):
-    """
-    User model with attributes such as fullname, email, and password.
-    """
-
-    fullname = StringField(max_length=200, required=True, validation=validate_name)
-    email = EmailField(required=True, unique=True)
-    password = StringField(required=True)
-
-
 class Video(DefaultAttributes, Document):
     """
     Video model with attributes such as title, url, author, length, video_id,
     publish_date, video_path, audio_path, and text.
     """
 
-    title = StringField(max_length=200, required=True, validation=validate_name)
-    url = StringField(required=True, unique=True)
-    author = StringField(max_length=200, required=True, validation=validate_name)
-    length = IntField(required=True)
-    video_id = StringField(required=True, unique=True)
+    title = StringField(validation=validate_name)
+    video_url = StringField(unique=True)
+    author = StringField(validation=validate_name)
+    length = IntField()
+    video_id = StringField(unique=True)
     publish_date = DateTimeField(required=True)
-    video_path = StringField(required=True, unique=True)
-    audio_path = StringField(required=True, unique=True)
-    text = StringField(required=True, unique=True)
+    video_path = StringField(unique=True)
+    audio_path = StringField(unique=True)
+    text = StringField(unique=True)
