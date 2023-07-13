@@ -28,8 +28,21 @@ def get_video_metadata_route():
         video_metadata = get_video_metadata(video_url)
 
         # Save metadata to DB
-        video = Video(**video_metadata)
-        video.save()
+        # video = Video(**video_metadata)
+        # video.save()
+
+        # Check if video metadata already exists in DB
+        video = Video.objects(video_id=video_metadata["video_id"]).first()
+
+        # If video metadata already exists in DB, update the metadata
+        if video:
+            # Update the video metadata
+            video.update(**video_metadata)
+            video.save()
+        else:
+            # Save the video metadata
+            video = Video(**video_metadata)
+            video.save()
 
         return response(
             200,
