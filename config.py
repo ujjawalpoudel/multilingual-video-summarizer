@@ -8,4 +8,4 @@ database_name = os.getenv("DATABASE_NAME")
 host = os.getenv("DB_HOST")
 
 # * Define the database host URI
-host_uri = f"mongodb://{user}:{password}@{host}/{database_name}"
+host_uri = f"mongodb+srv://{user}:{password}@{host}/{database_name}"
