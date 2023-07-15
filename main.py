@@ -43,7 +43,6 @@ app.register_blueprint(file_download_blueprint, url_prefix="/video")
 app.register_blueprint(audio_to_text_blueprint, url_prefix="/audio")
 
 # Define the MongoDB connection
-print(host_uri)
 connect(host=host_uri, tlsCAFile=certifi.where())
 
 # Run API Server
