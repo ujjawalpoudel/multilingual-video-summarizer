@@ -9,7 +9,7 @@ from utils.validation_decorators import pydantic_validation
 from service.video.youtube_metadata import get_video_metadata
 
 # Import DB models
-from app.model.vidoe import Video
+from app.model.video import Video
 
 # Define Blueprint for API Routes
 video_metadata_blueprint = Blueprint("video_metadata", __name__)
