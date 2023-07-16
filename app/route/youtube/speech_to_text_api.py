@@ -12,7 +12,7 @@ from utils.validation_decorators import pydantic_validation
 from service.video.audio_to_text import convert_audio_to_text
 
 # Import DB models
-from app.model.vidoe import Video
+from app.model.video import Video
 
 # Define the blueprint for the audio-to-text functionality
 audio_to_text_blueprint = Blueprint("audio_to_text", __name__)
