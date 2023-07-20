@@ -10,6 +10,7 @@ from app.validator.file_path_validator import FilePathValidator
 from utils.response_utils import response
 from utils.validation_decorators import pydantic_validation
 from service.video.audio_to_text import convert_audio_to_text
+from utils.word_cloud_generator import generate_word_cloud_and_save
 
 # Import DB models
 from app.model.video import Video
@@ -46,11 +47,15 @@ def convert_audio_to_text_route():
             video.text = text
             video.save()
 
+        # Generate a word cloud from the extracted text
+        word_cloud_path = generate_word_cloud_and_save(text, video_id)
+
         # Return a success response with the extracted text
         return response(
             200,
             {
                 "message": "Audio successfully converted to text.",
+                "word_cloud_path": word_cloud_path,
                 "text": text,
             },
         )
