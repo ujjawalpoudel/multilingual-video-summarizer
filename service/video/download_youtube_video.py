@@ -19,12 +19,15 @@ def download_video_as_mp3(url):
                 "preferredquality": "192",
             }
         ],
-        "outtmpl": f"{output_dir}/%(title)s.%(ext)s",
+        "outtmpl": f"{output_dir}/%(title)s_%(id)s.%(ext)s",
     }
 
     with YoutubeDL(ydl_opts) as ydl:
         # Download the video
         info_dict = ydl.extract_info(url, download=True)
+
+        # Get vidoe id from info_dict
+        video_id = info_dict.get("id", None)
         # video_title = info_dict.get('title', 'video')
 
         # Get the save path of the audio

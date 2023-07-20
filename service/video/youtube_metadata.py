@@ -1,5 +1,8 @@
 from pytube import YouTube
 
+# Import Custom Modules
+from app.model.video import Video
+
 
 def get_video_metadata(url):
     """
@@ -28,5 +31,14 @@ def get_video_metadata(url):
         "publish_date": yt.publish_date,
         "video_url": yt.watch_url,
     }
+
+    # Check if the video already exists in the database
+    video = Video.objects(video_id=yt.video_id).first()
+
+    # If video object is None, then the video does not exist in the database
+    if video == None:
+        # Save all information to the database
+        video = Video(**youtube_metadata)
+        video.save()
 
     return youtube_metadata
