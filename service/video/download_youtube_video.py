@@ -19,7 +19,7 @@ def download_video_as_mp3(url):
                 "preferredquality": "192",
             }
         ],
-        "outtmpl": f"{output_dir}/%(title)s.%(ext)s",
+        "outtmpl": f"{output_dir}/%(title)s_%(id)s.%(ext)s",
     }
 
     with YoutubeDL(ydl_opts) as ydl:
@@ -34,6 +34,6 @@ def download_video_as_mp3(url):
         file_path = ydl.prepare_filename(info_dict)
 
         # Change the file extension to .mp3
-        mp3_file_path = os.path.splitext(file_path)[0] + "_" + video_id + ".mp3"
+        mp3_file_path = os.path.splitext(file_path)[0] + ".mp3"
 
     return mp3_file_path

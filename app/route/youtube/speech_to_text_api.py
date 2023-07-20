@@ -13,6 +13,7 @@ from service.video.audio_to_text import convert_audio_to_text
 
 # Import DB models
 from app.model.video import Video
+from utils.file_id_extractor import extract_id_from_file_path
 
 # Define the blueprint for the audio-to-text functionality
 audio_to_text_blueprint = Blueprint("audio_to_text", __name__)
@@ -27,13 +28,15 @@ def convert_audio_to_text_route():
         # Get data from the frontend
         data = json.loads(request.data)
         file_path = data["file_path"]
-        video_id = data["video_id"]
+
+        # Extract the video ID from the file path
+        video_id = extract_id_from_file_path(file_path)
 
         # Check if video metadata already exists in DB
         video = Video.objects(video_id=video_id).first()
 
-        # If video object already exists in DB, get text from that and return it
-        if video:
+        # Check if video object has text attribute
+        if hasattr(video, "text") and video.text is not None:
             text = video.text
         else:
             # Convert audio to text
