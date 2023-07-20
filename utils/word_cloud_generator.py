@@ -22,6 +22,9 @@ def generate_word_cloud_and_save(text_content, video_id):
     # Set the directory to save the Word Cloud image
     output_dir = os.path.join(os.getcwd(), "static", "word_clouds")
 
+    # Create the output directory if it doesn't exist
+    os.makedirs(output_dir, exist_ok=True)
+
     # Create the file path for the Word Cloud image
     filename = os.path.join(output_dir, f"{video_id}.png")
 
