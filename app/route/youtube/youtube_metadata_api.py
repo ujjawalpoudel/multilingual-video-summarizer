@@ -27,10 +27,6 @@ def get_video_metadata_route():
         # Get metadata from YouTube
         video_metadata = get_video_metadata(video_url)
 
-        # Save metadata to DB
-        # video = Video(**video_metadata)
-        # video.save()
-
         # Check if video metadata already exists in DB
         video = Video.objects(video_id=video_metadata["video_id"]).first()
 
