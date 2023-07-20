@@ -25,12 +25,15 @@ def download_video_as_mp3(url):
     with YoutubeDL(ydl_opts) as ydl:
         # Download the video
         info_dict = ydl.extract_info(url, download=True)
+
+        # Get vidoe id from info_dict
+        video_id = info_dict.get("id", None)
         # video_title = info_dict.get('title', 'video')
 
         # Get the save path of the audio
         file_path = ydl.prepare_filename(info_dict)
 
         # Change the file extension to .mp3
-        mp3_file_path = os.path.splitext(file_path)[0] + ".mp3"
+        mp3_file_path = os.path.splitext(file_path)[0] + "_" + video_id + ".mp3"
 
     return mp3_file_path
