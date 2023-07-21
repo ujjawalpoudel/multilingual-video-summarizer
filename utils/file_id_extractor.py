@@ -8,8 +8,8 @@ def extract_id_from_file_path(file_path):
     Returns:
         str: The extracted ID from the file path.
     """
-    # Split the file path by underscore and take the last part.
-    file_name = file_path.split("_")[-1]
+    # Split the file path by / and take the last part (the file name).
+    file_name = file_path.split("/")[-1]
 
     # Split the file name by dot and take the first part (the ID).
     id = file_name.split(".")[0]

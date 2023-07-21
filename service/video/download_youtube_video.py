@@ -19,7 +19,7 @@ def download_video_as_mp3(url):
                 "preferredquality": "192",
             }
         ],
-        "outtmpl": f"{output_dir}/%(title)s_%(id)s.%(ext)s",
+        "outtmpl": f"{output_dir}/%(id)s.%(ext)s",
     }
 
     with YoutubeDL(ydl_opts) as ydl:
