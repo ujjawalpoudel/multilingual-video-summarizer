@@ -23,16 +23,18 @@ audio_to_text_blueprint = Blueprint("audio_to_text", __name__)
 
 # Define the API route for converting audio to text
 @audio_to_text_blueprint.route("/convert", methods=["POST"])
-@pydantic_validation(FilePathValidator)
 @cross_origin()
 def convert_audio_to_text_route():
     try:
         # Get data from the frontend
         data = json.loads(request.data)
         file_path = data["file_path"]
+        print('===========>File:',file_path)
 
         # Extract the video ID from the file path
         video_id = extract_id_from_file_path(file_path)
+
+        print('video id from func:', video_id)
 
         # Check if video metadata already exists in DB
         video = Video.objects(video_id=video_id).first()

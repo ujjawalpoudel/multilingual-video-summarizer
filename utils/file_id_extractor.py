@@ -10,8 +10,10 @@ def extract_id_from_file_path(file_path):
     """
     # Split the file path by / and take the last part (the file name).
     file_name = file_path.split("/")[-1]
+    file_name = file_name.split("\\")[-1]
 
     # Split the file name by dot and take the first part (the ID).
-    id = file_name.split(".")[0]
+    id = file_name.split(".")[0].strip()
 
+    print('ID Found in text:', id)
     return id
