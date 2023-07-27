@@ -42,10 +42,11 @@ def convert_audio_to_text_route():
             text = video.text
         else:
             # Convert audio to text
-            text = convert_audio_to_text(file_path)
+            text, source_language = convert_audio_to_text(file_path)
 
             # Update the video metadata
             video.text = text
+            video.source_language = source_language
             video.save()
 
         # Generate a word cloud from the extracted text
