@@ -34,4 +34,4 @@ def convert_audio_to_text(audio_file_path):
     result = model.transcribe(audio_file_path, task=task, language=source_language)
 
     # Return the transcribed text
-    return result["text"], source_language
+    return result["text"].strip(), source_language

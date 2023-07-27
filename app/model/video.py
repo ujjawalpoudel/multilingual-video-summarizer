@@ -56,3 +56,4 @@ class Video(DefaultAttributes, Document):
     audio_path = StringField()
     text = StringField()
     source_language = StringField()
+    source_text = StringField()
