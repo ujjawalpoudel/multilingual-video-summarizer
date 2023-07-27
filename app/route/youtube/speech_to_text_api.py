@@ -24,7 +24,6 @@ audio_to_text_blueprint = Blueprint("audio_to_text", __name__)
 
 # Define the API route for converting audio to text
 @audio_to_text_blueprint.route("/convert", methods=["POST"])
-@pydantic_validation(FilePathValidator)
 @cross_origin()
 def convert_audio_to_text_route():
     try:
@@ -34,6 +33,7 @@ def convert_audio_to_text_route():
 
         # Extract the video ID from the file path
         video_id = extract_id_from_file_path(file_path)
+
 
         # Check if video metadata already exists in DB
         video = Video.objects(video_id=video_id).first()
