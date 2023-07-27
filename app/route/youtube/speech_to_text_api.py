@@ -35,7 +35,6 @@ def convert_audio_to_text_route():
         # Extract the video ID from the file path
         video_id = extract_id_from_file_path(file_path)
 
-
         # Check if video metadata already exists in DB
         video = Video.objects(video_id=video_id).first()
 
