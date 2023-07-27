@@ -68,17 +68,29 @@ def convert_audio_to_text_route():
         # Save the extracted text to a file
         text_file_path = save_text_to_file(text, video_id)
 
+        # Convert video to json
+        video_json = video.get_json(
+            return_fields=[
+                "title",
+                "video_url",
+                "author",
+                "video_id",
+                "text",
+                "source_language",
+                "source_text",
+                "id",
+            ]
+        )
+
+        # Add information about the word cloud, text file and message to the video json
+        video_json["word_cloud_path"] = word_cloud_path
+        video_json["text_file_path"] = text_file_path
+        video_json["message"] = "Audio successfully converted to text."
+
         # Return a success response with the extracted text
         return response(
             200,
-            {
-                "message": "Audio successfully converted to text.",
-                "word_cloud_path": word_cloud_path,
-                "text_file_path": text_file_path,
-                "text": text,
-                "video_id": video_id,
-                "id": str(video.id),
-            },
+            video_json,
         )
     except Exception as e:
         # Handle any exceptions and return an error response
