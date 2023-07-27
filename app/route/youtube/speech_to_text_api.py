@@ -62,6 +62,8 @@ def convert_audio_to_text_route():
                 "word_cloud_path": word_cloud_path,
                 "text_file_path": text_file_path,
                 "text": text,
+                "video_id": video_id,
+                "id": str(video.id),
             },
         )
     except Exception as e:
