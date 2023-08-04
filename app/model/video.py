@@ -55,3 +55,37 @@ class Video(DefaultAttributes, Document):
     video_path = StringField()
     audio_path = StringField()
     text = StringField()
+    source_language = StringField()
+    source_text = StringField()
+
+    def get_json(self, return_fields=None):
+        """
+        Returns a dictionary representation of the Video object, including specified return fields.
+
+        Args:
+            return_fields (list, optional): A list of field names to be included in the output.
+                                            If None, all fields will be returned. (default is None)
+
+        Returns:
+            dict: A dictionary containing the specified fields and their values.
+        """
+        output = {
+            "title": self.title,
+            "video_url": self.video_url,
+            "author": self.author,
+            "video_id": self.video_id,
+            "text": self.text,
+            "source_language": self.source_language,
+            "source_text": self.source_text,
+            "id": str(self.id),
+        }
+
+        if return_fields is not None:
+            # Filter the output to include only specified fields
+            output = {
+                field: value
+                for field, value in output.items()
+                if field in return_fields
+            }
+
+        return output

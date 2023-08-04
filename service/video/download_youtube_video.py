@@ -5,6 +5,7 @@ from yt_dlp import YoutubeDL
 def download_video_as_mp3(url):
     # Set the save path directory
     output_dir = os.path.join(os.getcwd(), "static")
+    output_dir = os.path.join(output_dir, "audio")
 
     # Create the save path directory if it doesn't exist
     os.makedirs(output_dir, exist_ok=True)

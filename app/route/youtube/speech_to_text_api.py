@@ -12,6 +12,7 @@ from utils.validation_decorators import pydantic_validation
 from service.video.audio_to_text import convert_audio_to_text
 from utils.word_cloud_generator import generate_word_cloud_and_save
 from utils.text_file_writer import save_text_to_file
+from utils.translator import translate_text
 
 # Import DB models
 from app.model.video import Video
@@ -23,7 +24,7 @@ audio_to_text_blueprint = Blueprint("audio_to_text", __name__)
 
 # Define the API route for converting audio to text
 @audio_to_text_blueprint.route("/convert", methods=["POST"])
-@pydantic_validation(FilePathValidator)
+# @pydantic_validation(FilePathValidator)
 @cross_origin()
 def convert_audio_to_text_route():
     try:
@@ -42,10 +43,23 @@ def convert_audio_to_text_route():
             text = video.text
         else:
             # Convert audio to text
-            text = convert_audio_to_text(file_path)
+            text, source_language = convert_audio_to_text(file_path)
+
+            # Define a target language for translation
+            target_language = "en"
 
             # Update the video metadata
             video.text = text
+            video.source_language = source_language
+
+            # Check if the source language and target language are different
+            if source_language != target_language:
+                # Translate the text to English
+                video.source_text = translate_text(
+                    text, source_language, target_language
+                )
+            else:
+                video.source_text = text
             video.save()
 
         # Generate a word cloud from the extracted text
@@ -54,15 +68,29 @@ def convert_audio_to_text_route():
         # Save the extracted text to a file
         text_file_path = save_text_to_file(text, video_id)
 
+        # Convert video to json
+        video_json = video.get_json(
+            return_fields=[
+                "title",
+                "video_url",
+                "author",
+                "video_id",
+                "text",
+                "source_language",
+                "source_text",
+                "id",
+            ]
+        )
+
+        # Add information about the word cloud, text file and message to the video json
+        video_json["word_cloud_path"] = word_cloud_path
+        video_json["text_file_path"] = text_file_path
+        video_json["message"] = "Audio successfully converted to text."
+
         # Return a success response with the extracted text
         return response(
             200,
-            {
-                "message": "Audio successfully converted to text.",
-                "word_cloud_path": word_cloud_path,
-                "text_file_path": text_file_path,
-                "text": text,
-            },
+            video_json,
         )
     except Exception as e:
         # Handle any exceptions and return an error response

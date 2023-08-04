@@ -16,7 +16,7 @@ file_download_blueprint = Blueprint("file_download", __name__)
 
 
 @file_download_blueprint.route("/download", methods=["POST"])
-@pydantic_validation(URLValidator)
+# @pydantic_validation(URLValidator)
 @cross_origin()
 def download_file():
     try:
